@@ -18,4 +18,9 @@ npx shadcn@latest init
 npx shadcn@latest add @shadcn/navigation-menu
 npx shadcn@latest add @shadcn/button
 npx shadcn@latest add @shadcn/card
+
+https://neon.com/
+https://stack-auth.com/
+
+npx @stackframe/init-stack@latest --no-browser
 ```
