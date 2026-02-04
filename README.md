@@ -40,4 +40,7 @@ npm run db:mark-applied && npm run db:migrate
 # The seed script was updated so that it can run even when neon_auth.users_sync doesn’t exist:
 
 npm i -D tsx
+
+rm -rf .next node_modules/.cache
+npm run dev
 ```

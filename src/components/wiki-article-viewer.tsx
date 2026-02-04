@@ -1,24 +1,25 @@
 "use client";
 
-import { Calendar, ChevronRight, Edit, Home, User } from "lucide-react";
+import { Calendar, ChevronRight, Edit, Home, Trash, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { deleteArticleForm } from "@/app/actions/articles";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface Article {
-  id: string;
+interface ViewerArticle {
   title: string;
+  author: string | null;
+  id: number;
   content: string;
-  author: string;
   createdAt: string;
-  imageUrl?: string;
+  imageUrl?: string | null;
 }
 
 interface WikiArticleViewerProps {
-  article: Article;
+  article: ViewerArticle;
   canEdit?: boolean;
 }
 
@@ -64,7 +65,7 @@ export default function WikiArticleViewer({
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center">
               <User className="h-4 w-4 mr-1" />
-              <span>By {article.author}</span>
+              <span>By {article.author ?? "Unknown"}</span>
             </div>
             <div className="flex items-center">
               <Calendar className="h-4 w-4 mr-1" />
@@ -76,12 +77,27 @@ export default function WikiArticleViewer({
 
         {/* Edit Button - Only shown if user has edit permissions */}
         {canEdit && (
-          <Link href={`/wiki/edit/${article.id}`} className="ml-4">
-            <Button variant="outline">
-              <Edit className="h-4 w-4 mr-2" />
-              Edit Article
-            </Button>
-          </Link>
+          <div className="ml-4 flex items-center gap-2">
+            <Link href={`/wiki/edit/${article.id}`} className="cursor-pointer">
+              <Button variant="outline" className="cursor-pointer">
+                <Edit className="h-4 w-4 mr-2" />
+                Edit Article
+              </Button>
+            </Link>
+
+            {/* Delete form calls the server action wrapper */}
+            <form action={deleteArticleForm}>
+              <input type="hidden" name="id" value={String(article.id)} />
+              <Button
+                type="submit"
+                variant="destructive"
+                className="ml-2 cursor-pointer"
+              >
+                <Trash className="h-4 w-4 mr-2" />
+                Delete
+              </Button>
+            </form>
+          </div>
         )}
       </div>
 
@@ -205,12 +221,26 @@ export default function WikiArticleViewer({
         </Link>
 
         {canEdit && (
-          <Link href={`/wiki/edit/${article.id}`}>
-            <Button>
-              <Edit className="h-4 w-4 mr-2" />
-              Edit This Article
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href={`/wiki/edit/${article.id}`} className="cursor-pointer">
+              <Button className="cursor-pointer">
+                <Edit className="h-4 w-4 mr-2" />
+                Edit This Article
+              </Button>
+            </Link>
+
+            <form action={deleteArticleForm}>
+              <input type="hidden" name="id" value={String(article.id)} />
+              <Button
+                type="submit"
+                variant="destructive"
+                className="cursor-pointer"
+              >
+                <Trash className="h-4 w-4 mr-2" />
+                Delete
+              </Button>
+            </form>
+          </div>
         )}
       </div>
     </div>

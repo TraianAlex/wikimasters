@@ -6,22 +6,22 @@
  * Run: npx tsx scripts/mark-migration-applied.ts
  * Then run: npm run db:migrate
  */
-import 'dotenv/config';
-import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { neon } from '@neondatabase/serverless';
+import "dotenv/config";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { neon } from "@neondatabase/serverless";
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
-  console.error('DATABASE_URL is not set');
+  console.error("DATABASE_URL is not set");
   process.exit(1);
 }
 
-const migrationTag = '0000_old_lila_cheney';
-const migrationPath = join(process.cwd(), 'drizzle', `${migrationTag}.sql`);
-const sqlContent = readFileSync(migrationPath, 'utf-8');
-const hash = createHash('sha256').update(sqlContent).digest('hex');
+const migrationTag = "0000_old_lila_cheney";
+const migrationPath = join(process.cwd(), "drizzle", `${migrationTag}.sql`);
+const sqlContent = readFileSync(migrationPath, "utf-8");
+const hash = createHash("sha256").update(sqlContent).digest("hex");
 const when = 1770163184587;
 
 const sql = neon(DATABASE_URL);
@@ -47,7 +47,7 @@ async function main() {
     VALUES (${hash}, ${when})
   `;
   console.log(
-    `Marked migration ${migrationTag} as applied. You can now run: npm run db:migrate`
+    `Marked migration ${migrationTag} as applied. You can now run: npm run db:migrate`,
   );
 }
 
