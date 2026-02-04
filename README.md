@@ -55,6 +55,7 @@ npm i @upstash/redis
 # vercel - settings - integrations - broese marketplace - upstash - install
 # configure with the existing upstash account
 # integration - upstash - manage access
+# check project name - settings - env vars - see the env vars
 
 rm -rf .next node_modules/.cache
 npm run dev
