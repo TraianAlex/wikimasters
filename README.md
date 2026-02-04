@@ -41,6 +41,14 @@ npm run db:mark-applied && npm run db:migrate
 
 npm i -D tsx
 
+# create an project to vercel than deploy and add the env vars
+# create a storage - blob and add the blob_base_url to env file
+# from Settings - Enviroment variables copy blob read write token to blob_api_key in env
+# update next.config.ts (remotePatterns)
+npm i @vercel/blob
+
 rm -rf .next node_modules/.cache
 npm run dev
 ```
+
+https://wikimasters-alpha.vercel.app/
