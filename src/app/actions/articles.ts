@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import redis from "@/cache";
 import { authorizeUserToEditArticle } from "@/db/authz";
 import db from "@/db/index";
 import { articles } from "@/db/schema";
@@ -39,6 +40,7 @@ export async function createArticle(data: CreateArticleInput) {
     imageUrl: data.imageUrl ?? undefined,
   });
 
+  redis.del("articles:all");
   return { success: true, message: "Article create logged" };
 }
 

@@ -47,6 +47,15 @@ npm i -D tsx
 # update next.config.ts (remotePatterns)
 npm i @vercel/blob
 
+# set up redis on upstash then
+npm i @upstash/redis
+# create the cash folder - file
+# set the env vars
+
+# vercel - settings - integrations - broese marketplace - upstash - install
+# configure with the existing upstash account
+# integration - upstash - manage access
+
 rm -rf .next node_modules/.cache
 npm run dev
 ```
