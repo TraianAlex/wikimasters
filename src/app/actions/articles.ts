@@ -30,7 +30,7 @@ export async function createArticle(data: CreateArticleInput) {
   }
   console.log("✨ createArticle called:", data);
 
-  const _response = await db.insert(articles).values({
+  await db.insert(articles).values({
     title: data.title,
     content: data.content,
     slug: `${Date.now()}`,
@@ -53,7 +53,7 @@ export async function updateArticle(id: string, data: UpdateArticleInput) {
 
   console.log("📝 updateArticle called:", { id, ...data });
 
-  const _response = await db
+  await db
     .update(articles)
     .set({
       title: data.title,
@@ -76,7 +76,7 @@ export async function deleteArticle(id: string) {
 
   console.log("🗑️ deleteArticle called:", id);
 
-  const _response = await db.delete(articles).where(eq(articles.id, +id));
+  await db.delete(articles).where(eq(articles.id, +id));
 
   return { success: true, message: `Article ${id} delete logged (stub)` };
 }
