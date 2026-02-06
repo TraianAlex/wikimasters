@@ -21,6 +21,7 @@ npx shadcn@latest add @shadcn/card
 
 https://neon.com/
 https://stack-auth.com/
+# add the app domain to the trusted domains
 
 npx @stackframe/init-stack@latest --no-browser
 
@@ -56,6 +57,9 @@ npm i @upstash/redis
 # configure with the existing upstash account
 # integration - upstash - manage access
 # check project name - settings - env vars - see the env vars
+
+# # resend - settings - api keys - create api key
+npm i resend @react-email/render
 
 rm -rf .next node_modules/.cache
 npm run dev
