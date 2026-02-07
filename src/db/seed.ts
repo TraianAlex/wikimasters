@@ -1,6 +1,6 @@
 import { seed } from "drizzle-seed";
 import db, { sql } from "@/db/index";
-import { articles } from "@/db/schema";
+import { articles, usersSync } from "@/db/schema";
 import { ensureUserExists } from "@/db/sync_user";
 
 const SEED_COUNT = 25;
@@ -31,14 +31,21 @@ async function main() {
     await sql.query("TRUNCATE TABLE articles RESTART IDENTITY CASCADE;");
 
     console.log("🔎 Querying existing users...");
-    const ids = await ensureUsersSyncAndGetIds();
-    console.log(`👥 Found ${ids.length} user(s)`);
+    const users = await db
+      .select({ id: usersSync.id })
+      .from(usersSync)
+      .orderBy(usersSync.id);
+    let ids = users.map((user) => user.id);
+    console.log(`👥 Found ${users.length} user(s)`);
 
     if (ids.length === 0) {
       console.error(
         "❌ No users found in the database. Seed cannot assign authorId without existing users.",
       );
-      process.exit(1);
+      // process.exit(1);
+      console.log("🔎 Creating dev user...");
+      ids = await ensureUsersSyncAndGetIds();
+      console.log(`👥 Created dev user with id: ${ids[0]}`);
     }
 
     console.log("🍩 Using drizzle-seed...");
