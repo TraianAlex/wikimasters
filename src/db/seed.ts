@@ -1,45 +1,53 @@
-import { usersSync } from "drizzle-orm/neon";
 import { seed } from "drizzle-seed";
 import db, { sql } from "@/db/index";
 import { articles } from "@/db/schema";
+import { ensureUserExists } from "@/db/sync_user";
 
 const SEED_COUNT = 25;
 const SEED = 1337;
+
 const DEV_USER_ID = "3eb13d44-75c7-49dc-9adf-bbe62e35a8c6";
+const DEV_USER = {
+  id: DEV_USER_ID,
+  displayName: "Traian",
+  primaryEmail: "victortraian92@gmail.com",
+};
 
 async function ensureUsersSyncAndGetIds(): Promise<string[]> {
   try {
-    const users = await db
-      .select({ id: usersSync.id })
-      .from(usersSync)
-      .orderBy(usersSync.id);
-    return users.map((u) => u.id);
+    // const users = await db
+    //   .select({ id: usersSync.id })
+    //   .from(usersSync)
+    //   .orderBy(usersSync.id);
+    // return users.map((u) => u.id);
+    await ensureUserExists(DEV_USER);
+    return [DEV_USER_ID];
   } catch (err: unknown) {
-    const code = (err as { cause?: { code?: string } })?.cause?.code;
-    if (code === "42P01") {
-      // relation "neon_auth.users_sync" does not exist – create it for local/dev
-      console.log(
-        "📦 neon_auth.users_sync not found; creating schema and dev user for seeding...",
-      );
-      await sql.query("CREATE SCHEMA IF NOT EXISTS neon_auth;");
-      await sql.query(`
-        CREATE TABLE IF NOT EXISTS neon_auth.users_sync (
-          raw_json jsonb NOT NULL DEFAULT '{}',
-          id text PRIMARY KEY,
-          name text,
-          email text,
-          created_at timestamptz,
-          deleted_at timestamptz,
-          updated_at timestamptz
-        );
-      `);
-      await sql`
-        INSERT INTO neon_auth.users_sync (id, raw_json)
-        VALUES (${DEV_USER_ID}, '{}'::jsonb)
-        ON CONFLICT (id) DO NOTHING
-      `;
-      return [DEV_USER_ID];
-    }
+    const _code = (err as { cause?: { code?: string } })?.cause?.code;
+    // if (code === "42P01") {
+    //   // relation "neon_auth.users_sync" does not exist – create it for local/dev
+    //   console.log(
+    //     "📦 neon_auth.users_sync not found; creating schema and dev user for seeding...",
+    //   );
+    //   await sql.query("CREATE SCHEMA IF NOT EXISTS neon_auth;");
+    //   await sql.query(`
+    //     CREATE TABLE IF NOT EXISTS neon_auth.users_sync (
+    //       raw_json jsonb NOT NULL DEFAULT '{}',
+    //       id text PRIMARY KEY,
+    //       name text,
+    //       email text,
+    //       created_at timestamptz,
+    //       deleted_at timestamptz,
+    //       updated_at timestamptz
+    //     );
+    //   `);
+    //   await sql`
+    //     INSERT INTO neon_auth.users_sync (id, raw_json)
+    //     VALUES (${DEV_USER_ID}, '{}'::jsonb)
+    //     ON CONFLICT (id) DO NOTHING
+    //   `;
+    //   return [DEV_USER_ID];
+    // }
     throw err;
   }
 }

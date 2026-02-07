@@ -37,9 +37,6 @@ npx drizzle-kit migrate
 # scripts/mark-migration-applied.ts
 npm run db:mark-applied && npm run db:migrate
 
-# relation "neon_auth.users_sync" does not exist
-# The seed script was updated so that it can run even when neon_auth.users_sync doesn’t exist:
-
 npm i -D tsx
 
 # create an project to vercel than deploy and add the env vars
@@ -60,6 +57,10 @@ npm i @upstash/redis
 
 # # resend - settings - api keys - create api key
 npm i resend @react-email/render
+
+# set up the AI_GATEWAY_API_KEY in env
+# ger the vercel AI sdk
+npm i ai
 
 rm -rf .next node_modules/.cache
 npm run dev

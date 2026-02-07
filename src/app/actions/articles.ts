@@ -6,6 +6,7 @@ import redis from "@/cache";
 import { authorizeUserToEditArticle } from "@/db/authz";
 import db from "@/db/index";
 import { articles } from "@/db/schema";
+import { ensureUserExists } from "@/db/sync_user";
 import { stackServerApp } from "@/stack/server";
 
 // Server actions for articles (stubs)
@@ -29,6 +30,9 @@ export async function createArticle(data: CreateArticleInput) {
   if (!user) {
     throw new Error("❌ Unauthorized");
   }
+
+  await ensureUserExists(user); // sync the user to the database
+
   console.log("✨ createArticle called:", data);
 
   await db.insert(articles).values({
