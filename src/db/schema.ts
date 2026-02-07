@@ -20,7 +20,7 @@ export default schema;
 export type Article = typeof articles.$inferSelect;
 export type NewArticle = typeof articles.$inferInsert;
 
-// ADD this at the bottom of the file to fix the noen auth depreciacion:
+// ADD this to fix the noen auth depreciacion:
 export const usersSync = pgTable("usersSync", {
   id: text("id").primaryKey(),
   name: text("name"),

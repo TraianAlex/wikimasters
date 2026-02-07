@@ -15,39 +15,10 @@ const DEV_USER = {
 
 async function ensureUsersSyncAndGetIds(): Promise<string[]> {
   try {
-    // const users = await db
-    //   .select({ id: usersSync.id })
-    //   .from(usersSync)
-    //   .orderBy(usersSync.id);
-    // return users.map((u) => u.id);
     await ensureUserExists(DEV_USER);
     return [DEV_USER_ID];
   } catch (err: unknown) {
-    const _code = (err as { cause?: { code?: string } })?.cause?.code;
-    // if (code === "42P01") {
-    //   // relation "neon_auth.users_sync" does not exist – create it for local/dev
-    //   console.log(
-    //     "📦 neon_auth.users_sync not found; creating schema and dev user for seeding...",
-    //   );
-    //   await sql.query("CREATE SCHEMA IF NOT EXISTS neon_auth;");
-    //   await sql.query(`
-    //     CREATE TABLE IF NOT EXISTS neon_auth.users_sync (
-    //       raw_json jsonb NOT NULL DEFAULT '{}',
-    //       id text PRIMARY KEY,
-    //       name text,
-    //       email text,
-    //       created_at timestamptz,
-    //       deleted_at timestamptz,
-    //       updated_at timestamptz
-    //     );
-    //   `);
-    //   await sql`
-    //     INSERT INTO neon_auth.users_sync (id, raw_json)
-    //     VALUES (${DEV_USER_ID}, '{}'::jsonb)
-    //     ON CONFLICT (id) DO NOTHING
-    //   `;
-    //   return [DEV_USER_ID];
-    // }
+    console.error("💥 Error ensuring user exists:", err);
     throw err;
   }
 }
