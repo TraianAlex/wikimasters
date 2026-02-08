@@ -65,6 +65,10 @@ npm i resend @react-email/render
 # ger the vercel AI sdk
 npm i ai
 
+# switch above with google API KEY Gemeni project
+# set in summary the proper import and model 
+npm i @ai-sdk/google
+
 rm -rf .next node_modules/.cache
 npm run dev
 ```

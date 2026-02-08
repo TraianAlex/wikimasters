@@ -5,3 +5,16 @@ STACK_SECRET_SERVER_KEY='ssk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 # Database owner connection string
 DATABASE_URL='postgresql://neondb_owner:npg_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@ee-kkkk-ggggg-axxxxxxx-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require'
+
+BLOB_BASE_URL='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+BLOB_READ_WRITE_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+UPSTASH_REDIS_REST_URL="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+UPSTASH_REDIS_REST_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+RESEND_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# AI_GATEWAY_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# GEMINI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GOOGLE_GENERATIVE_AI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

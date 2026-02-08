@@ -7,6 +7,7 @@ export type ArticleList = {
   id: number;
   title: string;
   createdAt: string;
+  summary: string | null;
   content: string;
   author: string | null;
   imageUrl?: string | null;
@@ -24,6 +25,7 @@ export async function getArticles(): Promise<ArticleList[]> {
       title: articles.title,
       id: articles.id,
       createdAt: articles.createdAt,
+      summary: articles.summary,
       content: articles.content,
       author: usersSync.name,
     })
