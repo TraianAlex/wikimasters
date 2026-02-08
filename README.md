@@ -31,11 +31,14 @@ npm i -D drizzle-kit drizzle-seed
 npx drizzle-kit generate
 npx drizzle-kit migrate
 
+npm run db:migrate
+npm run db:generate
 # npx drizzle-kit push
 # If migrate fails with "relation \"articles\" already exists", the table was
 # created earlier (e.g. by push). Mark the migration as applied once, then re-run migrate:
 # scripts/mark-migration-applied.ts
 npm run db:mark-applied && npm run db:migrate
+npm run db:seed
 
 npm i -D tsx
 

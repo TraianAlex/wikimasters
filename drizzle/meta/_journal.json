@@ -15,6 +15,13 @@
       "when": 1770428072047,
       "tag": "0001_busy_mauler",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770561640381,
+      "tag": "0002_talented_karen_page",
+      "breakpoints": true
     }
   ]
 }
