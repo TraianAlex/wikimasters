@@ -69,6 +69,8 @@ npm i ai
 # set in summary the proper import and model 
 npm i @ai-sdk/google
 
+# create a cron job for route /api/summary in vercel.json
+
 rm -rf .next node_modules/.cache
 npm run dev
 ```
