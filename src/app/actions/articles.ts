@@ -38,18 +38,25 @@ export async function createArticle(data: CreateArticleInput) {
 
   const summary = await summarizeArticle(data.title || "", data.content || "");
 
-  await db.insert(articles).values({
-    title: data.title,
-    content: data.content,
-    slug: `${Date.now()}`,
-    published: true,
-    authorId: user.id,
-    imageUrl: data.imageUrl ?? undefined,
-    summary,
-  });
+  const [inserted] = await db
+    .insert(articles)
+    .values({
+      title: data.title,
+      content: data.content,
+      slug: `${Date.now()}`,
+      published: true,
+      authorId: user.id,
+      imageUrl: data.imageUrl ?? undefined,
+      summary,
+    })
+    .returning({ id: articles.id });
 
   redis.del("articles:all");
-  return { success: true, message: "Article create logged" };
+  return {
+    success: true,
+    message: "Article create logged",
+    id: inserted?.id,
+  };
 }
 
 export async function updateArticle(id: string, data: UpdateArticleInput) {

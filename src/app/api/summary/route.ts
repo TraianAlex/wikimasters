@@ -65,3 +65,8 @@ export async function GET(req: NextRequest) {
   console.log(`🤖 Concluding AI summary job, updated ${updated} rows`);
   return NextResponse.json({ ok: true, updated });
 }
+
+// Vercel provides a CRON_SECRET environment variable and passes it as an authorization header
+// to the endpoint. The endpoint checks if NODE_ENV is 'dev' to allow local testing,
+// or verifies that the authorization header matches bearer ${process.env.CRON_SECRET} in production.
+// If neither condition is met, it returns a 401 unauthorized response.

@@ -2,6 +2,7 @@
 
 import MDEditor from "@uiw/react-md-editor";
 import { Upload, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
 import { createArticle, updateArticle } from "@/app/actions/articles";
@@ -34,6 +35,7 @@ export default function WikiEditor({
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   // Validate form
   const validateForm = (): boolean => {
@@ -95,10 +97,14 @@ export default function WikiEditor({
 
       if (isEditing && articleId) {
         await updateArticle(articleId, payload);
-        alert("Article updated (stub)");
+        router.push(`/wiki/${articleId}`);
       } else {
-        await createArticle(payload);
-        alert("Article created (stub)");
+        const result = await createArticle(payload);
+        if (result?.id != null) {
+          router.push(`/wiki/${result.id}`);
+        } else {
+          alert("Article created (stub)");
+        }
       }
     } catch (err) {
       console.error("Error submitting article:", err);
@@ -144,6 +150,7 @@ export default function WikiEditor({
               <Label htmlFor="title">Title *</Label>
               <Input
                 id="title"
+                name="title"
                 type="text"
                 placeholder="Enter article title..."
                 value={title}
@@ -177,6 +184,7 @@ export default function WikiEditor({
                   hideToolbar={false}
                   visibleDragbar={false}
                   textareaProps={{
+                    name: "content",
                     placeholder: "Write your article content in Markdown...",
                     style: { fontSize: 14, lineHeight: 1.5 },
                     // make these explicit so SSR and client output match exactly
