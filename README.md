@@ -71,6 +71,10 @@ npm i @ai-sdk/google
 
 # create a cron job for route /api/summary in vercel.json
 
+# for testing install
+npm i @vercel/analytics @vercel/speed-insights @vercel/speed-insights server-only
+npm i -D @playwright/test @testing-library/react @testing-library/user-event @vitejs/plugin-react happy-dom neonctl vitest
+
 rm -rf .next node_modules/.cache
 npm run dev
 ```
