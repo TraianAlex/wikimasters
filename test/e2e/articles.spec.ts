@@ -79,8 +79,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
     const submitButton = page.locator('button[type="submit"]');
     await submitButton.click();
 
-    // Wait for navigation after submission (AI summary generation may take time)
-    await page.waitForURL(/\/(wiki\/\d+|$)/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Verify the article was created
     const articleTitle = page.locator("h1").filter({ hasText: uniqueTitle });
@@ -103,8 +106,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
     const createButton = page.locator('button[type="submit"]');
     await createButton.click();
 
-    // Wait for redirect to article page
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Extract article ID from URL
     const url = page.url();
@@ -137,8 +143,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
     const updateButton = page.locator('button[type="submit"]');
     await updateButton.click();
 
-    // Wait for redirect (AI summary generation may take time)
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Verify update was successful
     const updatedTitleElement = page
@@ -163,8 +172,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
     const createButton = page.locator('button[type="submit"]');
     await createButton.click();
 
-    // Wait for redirect to article page
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Verify we're on the article page
     await expect(
@@ -256,8 +268,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
 
     await page.locator('button[type="submit"]').click();
 
-    // Wait for redirect to article page
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Check that the title is displayed
     await expect(
@@ -313,8 +328,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
 
     await page.locator('button[type="submit"]').click();
 
-    // Wait for redirect to article page
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // The summary should be generated and displayed (though we can't predict exact content)
     // Just verify the article page loaded successfully
@@ -337,8 +355,11 @@ test.describe("Article CRUD Operations (Authenticated)", () => {
 
     await page.locator('button[type="submit"]').click();
 
-    // Wait for redirect
-    await page.waitForURL(/\/wiki\/\d+/, { timeout: 20000 });
+    // Wait for redirect (client-side navigation may not emit 'load')
+    await page.waitForFunction(
+      () => /\/wiki\/\d+/.test(window.location.pathname),
+      { timeout: 20000 },
+    );
 
     // Extract article ID
     const url = page.url();
