@@ -73,11 +73,11 @@ npm i @ai-sdk/google
 
 # for testing install
 npm i @vercel/analytics @vercel/speed-insights @vercel/speed-insights server-only
-npm i -D @playwright/test @testing-library/react @testing-library/user-event @vitejs/plugin-react happy-dom neonctl vitest
+npm i -D @playwright/test @testing-library/react @testing-library/user-event @vitejs/plugin-react happy-dom neonctl vitest @vitest/ui
 npx playwright install 
 
 rm -rf .next node_modules/.cache
 npm run dev
 ```
 
-https://wikimasters-alpha.vercel.app/
+[https://wikimasters-alpha.vercel.app/](https://wikimasters-alpha.vercel.app/)
