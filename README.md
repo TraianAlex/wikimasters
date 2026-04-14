@@ -53,7 +53,7 @@ npm i @upstash/redis
 # create the cash folder - file
 # set the env vars
 
-# vercel - settings - integrations - broese marketplace - upstash - install
+# vercel - settings - integrations - browse marketplace - upstash - install
 # configure with the existing upstash account
 # integration - upstash - manage access
 # check project name - settings - env vars - see the env vars
