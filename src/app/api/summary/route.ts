@@ -8,7 +8,7 @@ import { articles } from "@/db/schema";
 export async function GET(req: NextRequest) {
   if (
     process.env.NODE_ENV !== "development" &&
-    req.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`
+    req.headers.get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`
   ) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
