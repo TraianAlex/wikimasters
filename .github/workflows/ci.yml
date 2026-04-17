@@ -84,13 +84,20 @@ jobs:
           BLOB_BASE_URL: ${{ secrets.BLOB_BASE_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
+      # neonctl fails if NEON_API_KEY has trailing newlines (Node rejects the Authorization header).
       - name: Delete Neon Branch
         if: always()
-        uses: neondatabase/delete-branch-action@v3
-        with:
-          project_id: ${{ secrets.NEON_PROJECT_ID }}
-          branch: ${{ env.BRANCH_NAME }}
-          api_key: ${{ secrets.NEON_API_KEY }}
+        env:
+          NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
+          NEON_API_HOST: https://console.neon.tech/api/v2
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+        run: |
+          set -euo pipefail
+          npm i -g neonctl@v2
+          export NEON_API_KEY="$(printf '%s' "$NEON_API_KEY" | tr -d '\r\n')"
+          export NEON_PROJECT_ID="$(printf '%s' "$NEON_PROJECT_ID" | tr -d '\r\n')"
+          neonctl branches delete "$BRANCH_NAME" --project-id "$NEON_PROJECT_ID"
 
   e2e-tests:
     name: E2E Tests
@@ -151,13 +158,20 @@ jobs:
           BLOB_BASE_URL: ${{ secrets.BLOB_BASE_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
+      # neonctl fails if NEON_API_KEY has trailing newlines (Node rejects the Authorization header).
       - name: Delete Neon Branch
         if: always()
-        uses: neondatabase/delete-branch-action@v3
-        with:
-          project_id: ${{ secrets.NEON_PROJECT_ID }}
-          branch: ${{ env.BRANCH_NAME }}
-          api_key: ${{ secrets.NEON_API_KEY }}
+        env:
+          NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
+          NEON_API_HOST: https://console.neon.tech/api/v2
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+        run: |
+          set -euo pipefail
+          npm i -g neonctl@v2
+          export NEON_API_KEY="$(printf '%s' "$NEON_API_KEY" | tr -d '\r\n')"
+          export NEON_PROJECT_ID="$(printf '%s' "$NEON_PROJECT_ID" | tr -d '\r\n')"
+          neonctl branches delete "$BRANCH_NAME" --project-id "$NEON_PROJECT_ID"
 
   ts-check:
     name: TypeScript Check
