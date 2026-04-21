@@ -1,5 +1,6 @@
 import { StackHandler } from "@stackframe/stack";
+import { stackServerApp } from "@/stack/server";
 
 export default function Handler() {
-  return <StackHandler fullPage />;
+  return <StackHandler app={stackServerApp} fullPage />;
 }
