@@ -27,6 +27,11 @@ export default async function NavBar() {
             {user ? (
               <>
                 <NavigationMenuItem>
+                  <Button asChild>
+                    <Link href="/">Test CI/CD</Link>
+                  </Button>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <Button asChild variant="outline">
                     <Link href="/wiki/edit/new">New Article</Link>
                   </Button>
@@ -37,6 +42,11 @@ export default async function NavBar() {
               </>
             ) : (
               <>
+                <NavigationMenuItem>
+                  <Button asChild>
+                    <Link href="/handler/sign-in">Test CI/CD</Link>
+                  </Button>
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Button asChild variant="outline">
                     <Link href="/handler/sign-in">Sign In</Link>
