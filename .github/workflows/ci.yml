@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [develop]
 
+# Opt in to Node 24 for actions runtime (checkout, setup-node, composite actions).
+# See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   lint-and-format:
     name: Lint and Format Check
@@ -18,8 +23,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
@@ -39,8 +44,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
           cache-dependency-path: package-lock.json
 
       - name: Get Neon branch name
@@ -103,8 +108,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
           cache-dependency-path: package-lock.json
 
       - name: Get Neon branch name
@@ -170,8 +175,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
